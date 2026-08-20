@@ -1,5 +1,5 @@
 // Organic Maps route handoff using the legacy route URL scheme.
-// This overrides startOrganicNav from app.js after the main script has loaded.
+// Organic Maps expects both coordinates AND address/name fields for this scheme.
 window.startOrganicNav = async id => {
   const x = all().find(a => a.id === id);
   if (!x) return;
@@ -7,7 +7,9 @@ window.startOrganicNav = async id => {
   const box = $('routeInfo');
   try {
     await getPosition();
-    const u = `om://route?sll=${pos.lat},${pos.lon}&dll=${x.lat},${x.lon}&type=vehicle`;
+    const startName = encodeURIComponent('Aktueller Standort');
+    const destinationName = encodeURIComponent(x.name);
+    const u = `om://route?sll=${pos.lat},${pos.lon}&saddr=${startName}&dll=${x.lat},${x.lon}&daddr=${destinationName}&type=vehicle`;
     window.location.href = u;
   } catch (err) {
     console.error(err);
