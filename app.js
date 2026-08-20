@@ -109,12 +109,20 @@ function detail(x){
   $('detailDialog').showModal();
 }
 
-window.startOrganicNav = id => {
+window.startOrganicNav = async id => {
   const x=all().find(a=>a.id===id);
   if(!x) return;
-  const destinationName=encodeURIComponent(x.name);
-  const u=`om://v2/nav?origin=currentLocation&destination=${x.lat},${x.lon}&destination_name=${destinationName}&mode=drive`;
-  window.location.href=u;
+  const box=$('routeInfo');
+  try {
+    await getPosition();
+    const originName=encodeURIComponent('Aktueller Standort');
+    const destinationName=encodeURIComponent(x.name);
+    const u=`om://v2/nav?origin=${pos.lat},${pos.lon}&origin_name=${originName}&destination=${x.lat},${x.lon}&destination_name=${destinationName}&mode=drive`;
+    window.location.href=u;
+  } catch(err) {
+    console.error(err);
+    if(box) box.innerHTML='<div class="routebox">Standort konnte nicht gelesen werden. Bitte Standortfreigabe prüfen.</div>';
+  }
 };
 
 function getPosition(){
