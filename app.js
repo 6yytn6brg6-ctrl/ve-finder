@@ -100,13 +100,22 @@ function detail(x){
     </div>
     <div class="routebox">${x.note||''}</div>
     <div class="actions">
-      <button class="primary" onclick="routeTo('${x.id}')">Route auf Karte anzeigen</button>
+      <button class="primary nav-start" onclick="startOrganicNav('${x.id}')">Navigation starten</button>
+      <button class="outline" onclick="routeTo('${x.id}')">Route auf Karte anzeigen</button>
       <button class="outline" onclick="openOsmRoute('${x.id}')">Route in OSM öffnen</button>
     </div>
     <div id="routeInfo"></div>
   </div>`;
   $('detailDialog').showModal();
 }
+
+window.startOrganicNav = id => {
+  const x=all().find(a=>a.id===id);
+  if(!x) return;
+  const destinationName=encodeURIComponent(x.name);
+  const u=`om://v2/nav?origin=currentLocation&destination=${x.lat},${x.lon}&destination_name=${destinationName}&mode=drive`;
+  window.location.href=u;
+};
 
 function getPosition(){
   if(pos) return Promise.resolve(pos);
