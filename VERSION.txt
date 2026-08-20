@@ -1,0 +1,2 @@
+V/E Finder v0.3 - 2026-08-20
+Cache-Buster fuer Routing-Fix auf iOS Safari.
