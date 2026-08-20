@@ -1,0 +1,1 @@
+Cache-Buster für Safari/GitHub Pages: index.html lädt app.js und styles.css mit Versionsparameter v=20260820-3.
