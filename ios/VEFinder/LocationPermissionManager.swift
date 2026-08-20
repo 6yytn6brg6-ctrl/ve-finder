@@ -1,4 +1,5 @@
 import CoreLocation
+import Combine
 
 final class LocationPermissionManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
