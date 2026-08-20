@@ -5,12 +5,7 @@ let pos = null;
 let mode = 'nearby';
 let markers = [];
 let routeLine = null;
-
-const seed = [
-  {id:'carbotec',name:'CARBOTEC / Tremp Group, Königs Wusterhausen',state:'Brandenburg',postal:'15711',lat:52.2860,lon:13.6218,color:'Grün',cassette:'ja',grey:'ja',water:'ja',trash:'?',price:'ca. 2 €',phone:'+49 3375 2178-0',note:'Testpunkt – Position zunächst PLZ-genau.'},
-  {id:'schipkau',name:'Sprint Tankstelle, Senftenberger Straße 29, Schipkau',state:'Brandenburg',postal:'01998',lat:51.5207,lon:13.8980,color:'Grün',cassette:'ja',grey:'eingeschränkt',water:'ja',trash:'?',price:'Kassette ca. 1 €',phone:'',note:'Testpunkt – reine V/E ohne Parkmöglichkeit.'},
-  {id:'capron',name:'CAPRON Werk, Berghausstraße 1, Neustadt in Sachsen',state:'Sachsen',postal:'01844',lat:51.0276,lon:14.2176,color:'Grün',cassette:'ja',grey:'ja',water:'ja',trash:'?',price:'kostenfrei',phone:'+49 3596 53-0',note:'Werksstellplatz, beim Pförtner anmelden.'}
-];
+let seed = [];
 
 const all = () => seed.concat(user);
 const hav = (a,b,c,d) => {
@@ -28,6 +23,25 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
 let layer = L.layerGroup().addTo(map);
 let me = null;
 const yes = v => String(v).toLowerCase() === 'ja';
+
+async function loadStations(){
+  try{
+    const response=await fetch('stations.json?v=20260820-10',{cache:'no-store'});
+    if(!response.ok) throw new Error(`Stationsdaten HTTP ${response.status}`);
+    const data=await response.json();
+    if(!Array.isArray(data)) throw new Error('Stationsdaten haben kein gültiges Format');
+    seed=data;
+    render();
+    if(!pos) $('statusMsg').textContent=`Stationsdaten geladen · ${seed.length} Einträge`;
+    return true;
+  }catch(err){
+    console.error(err);
+    seed=[];
+    render();
+    $('statusMsg').textContent='Stationsdaten konnten nicht geladen werden. Bitte Internetverbindung prüfen.';
+    return false;
+  }
+}
 
 function color(x){
   return x.color==='Grün'?'green':x.color==='Gelb'?'yellow':x.color==='Rot'?'red':'white';
@@ -256,10 +270,15 @@ $('allBtn').onclick=()=>{
   render();
 };
 $('addBtn').onclick=add;
-$('dataBtn').onclick=()=>alert(`${user.length} eigene Station(en) sind auf diesem Gerät gespeichert.`);
+$('dataBtn').onclick=()=>alert(`${seed.length} Datenbank-Station(en) · ${user.length} eigene Station(en) auf diesem Gerät.`);
 ['searchInput','radiusSelect','fCassette','fGrey','fWater','fTrash','fConfirmed','sortSelect'].forEach(id=>{
   $(id).addEventListener(id==='searchInput'?'input':'change',render);
 });
 
-render();
-setTimeout(()=>locate(),400);
+async function init(){
+  render();
+  await loadStations();
+  setTimeout(()=>locate(),400);
+}
+
+init();
