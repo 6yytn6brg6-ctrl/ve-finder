@@ -1,1 +1,0 @@
-Routing-Fix vorbereitet: Route wird direkt auf der Leaflet-Karte gezeichnet; OSM-Link enthält Start- und Zielkoordinaten.
