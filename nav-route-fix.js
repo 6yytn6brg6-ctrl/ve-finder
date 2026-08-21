@@ -9,7 +9,8 @@ window.startOrganicNav = async id => {
     await getPosition();
     const startName = encodeURIComponent('Aktueller Standort');
     const destinationName = encodeURIComponent(x.name);
-    const u = `om://route?sll=${pos.lat},${pos.lon}&saddr=${startName}&dll=${x.lat},${x.lon}&daddr=${destinationName}&type=vehicle`;
+    const backUrl = encodeURIComponent('vefinder://return');
+    const u = `om://route?sll=${pos.lat},${pos.lon}&saddr=${startName}&dll=${x.lat},${x.lon}&daddr=${destinationName}&type=vehicle&backurl=${backUrl}`;
     window.location.href = u;
   } catch (err) {
     console.error(err);
