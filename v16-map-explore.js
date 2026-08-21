@@ -64,15 +64,16 @@
     if (['10', '25', '50'].includes(r) && sortSelect) sortSelect.value = `distance${r}`;
   }, true);
 
+  // Reset map-explore mode before the v1.5 section handlers render their list.
   nearbyBtn?.addEventListener('click', () => {
     viewportMode = false;
     const r = radiusSelect?.value;
     if (sortSelect && ['10', '25', '50'].includes(r)) sortSelect.value = `distance${r}`;
-  });
+  }, true);
 
   allBtn?.addEventListener('click', () => {
     viewportMode = false;
-  });
+  }, true);
 
   // --- Explore visible map area -------------------------------------------
   // Only a real finger/mouse gesture activates viewport mode. Programmatic
