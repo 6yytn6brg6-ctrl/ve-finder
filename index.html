@@ -7,14 +7,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="V/E Finder">
-  <meta name="ve-finder-build" content="20260821-25">
+  <meta name="ve-finder-build" content="20260821-26">
   <title>V/E Finder</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="styles.css?v=20260820-4">
 </head>
 <body>
 <div id="app">
-<header class="topbar"><div><div class="eyebrow">OPENSTREETMAP · V/E FINDER · v2.5</div><h1>V/E Finder</h1></div><button id="locateBtn" class="iconbtn" aria-label="Meinen Standort anzeigen">◎</button></header>
+<header class="topbar"><div><div class="eyebrow">OPENSTREETMAP · V/E FINDER · v2.6</div><h1>V/E Finder</h1></div><button id="locateBtn" class="iconbtn" aria-label="Meinen Standort anzeigen">◎</button></header>
 <section class="searchbar"><input id="searchInput" type="search" placeholder="Ort, PLZ, Händler, Marina …"><button id="filterBtn" class="secondary">Filter</button></section>
 <section id="filters" class="filters hidden"><div class="filter-grid"><label>Radius<select id="radiusSelect"><option value="10">10 km</option><option value="25" selected>25 km</option><option value="50">50 km</option><option value="100">100 km</option><option value="9999">alle</option></select></label><label><input type="checkbox" id="fCassette"> Kassette</label><label><input type="checkbox" id="fGrey"> Grauwasser</label><label><input type="checkbox" id="fWater"> Frischwasser</label><label><input type="checkbox" id="fTrash"> Müll</label><label><input type="checkbox" id="fConfirmed" checked> nur Grün/Gelb</label></div><div class="legend compact"><span><i class="dot green"></i> bestätigt</span><span><i class="dot yellow"></i> prüfen</span><span><i class="dot white"></i> Kandidat</span><span><i class="dot red"></i> keine Durchreise-V/E</span></div></section>
 <main><div id="map"></div><section class="results-panel"><div class="panel-head"><div><strong id="resultCount">0</strong> Treffer</div><select id="sortSelect"><option value="distance">Entfernung</option><option value="state">Bundesland</option><option value="name">Name</option></select></div><div id="statusMsg" class="statusmsg">Online-Testfassung: Standortfreigabe erlaubt die Suche in deiner Nähe.</div><div id="results" class="results"></div></section></main>
@@ -34,4 +34,5 @@
 <script src="v19-user-delete.js?v=20260821-20"></script>
 <script src="v21-station-edit.js?v=20260821-22"></script>
 <script src="v24-map-list-sync.js?v=20260821-25"></script>
+<script src="v26-scroll-selection-fix.js?v=20260821-26"></script>
 </body></html>
