@@ -1,23 +1,83 @@
-// V/E Finder v1.8: explicit back navigation for station details and route map mode.
+// V/E Finder v2.3: explicit back navigation that restores the exact previous search context.
 (() => {
   const detailDialog = document.getElementById('detailDialog');
   const detailContent = document.getElementById('detailContent');
   const sortSelect = document.getElementById('sortSelect');
+  const radiusSelect = document.getElementById('radiusSelect');
+  const searchInput = document.getElementById('searchInput');
   const statusMsg = document.getElementById('statusMsg');
 
+  const filterIds = ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed'];
+
   function contextLabel() {
+    const status = statusMsg?.textContent || '';
+    if (status.includes('Kartenausschnitt aktiv')) return 'Kartenausschnitt';
+
     const value = sortSelect?.value || '';
     if (value.startsWith('state:')) return value.slice(6);
+
     const distance = value.match(/^distance(10|25|50)$/);
-    if (distance) return `${distance[1]}-km-Umkreis`;
-    if (statusMsg?.textContent?.includes('Kartenausschnitt aktiv')) return 'Kartenausschnitt';
+    if (mode === 'nearby' && distance) return `${distance[1]}-km-Umkreis`;
+
     return mode === 'all' ? 'Alle Stationen' : 'In der Nähe';
+  }
+
+  function snapshotContext() {
+    return {
+      center: map.getCenter(),
+      zoom: map.getZoom(),
+      mode,
+      sort: sortSelect?.value || '',
+      radius: radiusSelect?.value || '',
+      search: searchInput?.value || '',
+      status: statusMsg?.textContent || '',
+      filters: Object.fromEntries(filterIds.map(id => [id, !!document.getElementById(id)?.checked]))
+    };
+  }
+
+  function restoreContext(ctx) {
+    if (!ctx) return;
+
+    if (searchInput) searchInput.value = ctx.search;
+    if (radiusSelect && ctx.radius) radiusSelect.value = ctx.radius;
+    for (const [id, checked] of Object.entries(ctx.filters || {})) {
+      const el = document.getElementById(id);
+      if (el) el.checked = checked;
+    }
+
+    // Re-run the active selection through the normal v1.7 handlers. This is
+    // important because it also clears a temporary map-viewport filter that can
+    // otherwise be left behind after tapping a marker.
+    if (sortSelect && ctx.sort) sortSelect.value = ctx.sort;
+
+    if (ctx.status.includes('Kartenausschnitt aktiv')) {
+      // The viewport mode itself is still active while the detail sheet is open;
+      // keep it untouched and only restore the map view below.
+      mode = ctx.mode;
+      render();
+    } else if (ctx.sort?.startsWith('state:')) {
+      sortSelect?.dispatchEvent(new Event('change', { bubbles: true }));
+    } else if (ctx.mode === 'nearby' && /^distance(10|25|50)$/.test(ctx.sort || '')) {
+      sortSelect?.dispatchEvent(new Event('change', { bubbles: true }));
+    } else {
+      mode = ctx.mode;
+      document.getElementById('nearbyBtn')?.classList.toggle('active', mode === 'nearby');
+      document.getElementById('allBtn')?.classList.toggle('active', mode === 'all');
+      render();
+    }
+
+    // Restore exactly the map position the user had before opening the station.
+    // Delay one frame so a radius/state handler cannot overwrite it afterwards.
+    requestAnimationFrame(() => {
+      map.setView(ctx.center, ctx.zoom, { animate: false });
+      if (statusMsg) statusMsg.textContent = ctx.status;
+      render();
+    });
   }
 
   const previousDetail = detail;
   detail = function(x) {
-    const returnView = { center: map.getCenter(), zoom: map.getZoom() };
-    const returnStatus = statusMsg?.textContent || '';
+    const returnContext = snapshotContext();
     const label = contextLabel();
 
     previousDetail(x);
@@ -31,8 +91,7 @@
     back.textContent = `← Zurück zu ${label}`;
     back.addEventListener('click', () => {
       if (detailDialog?.open) detailDialog.close();
-      map.setView(returnView.center, returnView.zoom, { animate: false });
-      if (statusMsg) statusMsg.textContent = returnStatus;
+      restoreContext(returnContext);
     });
     inner.insertBefore(back, inner.firstChild);
   };
