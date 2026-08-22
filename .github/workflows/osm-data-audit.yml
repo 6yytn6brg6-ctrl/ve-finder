@@ -1,0 +1,39 @@
+name: OSM V/E data audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/osm_dump_station_audit.py'
+      - 'data/stations-461.part*.b64'
+      - '.github/workflows/osm-data-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  osm-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run OSM comparison
+        run: python3 scripts/osm_dump_station_audit.py --output audit-output
+
+      - name: Show summary
+        if: always()
+        run: |
+          if [ -f audit-output/osm-audit-summary.md ]; then
+            cat audit-output/osm-audit-summary.md
+          fi
+
+      - name: Upload audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: osm-ve-audit
+          path: audit-output/
+          if-no-files-found: warn
+          retention-days: 14
