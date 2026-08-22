@@ -1,15 +1,15 @@
-// V/E Finder v3.5: load the full 466-station database and normalize source provenance.
+// V/E Finder v3.6: load the full 492-station database and normalize source provenance.
 // The database is gzip-compressed and split into small Base64 chunks for reliable hosting.
 // The legacy "stations-461" chunk names stay in place so existing cached installs can
 // update safely; the loader validates the current record count after decompression.
 (() => {
   const nativeFetch = window.fetch.bind(window);
   const parts = [
-    'data/stations-461.part00.b64?v=20260822-35',
-    'data/stations-461.part01.b64?v=20260822-35',
-    'data/stations-461.part02.b64?v=20260822-35',
-    'data/stations-461.part03.b64?v=20260822-35',
-    'data/stations-461.part04.b64?v=20260822-35'
+    'data/stations-461.part00.b64?v=20260822-36',
+    'data/stations-461.part01.b64?v=20260822-36',
+    'data/stations-461.part02.b64?v=20260822-36',
+    'data/stations-461.part03.b64?v=20260822-36',
+    'data/stations-461.part04.b64?v=20260822-36'
   ];
 
   const clean = value => String(value ?? '').trim();
@@ -85,7 +85,7 @@
     const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
     const text = await new Response(stream).text();
     const data = JSON.parse(text);
-    if (!Array.isArray(data) || data.length !== 466) {
+    if (!Array.isArray(data) || data.length !== 492) {
       throw new Error(`Unerwartete Stationsanzahl: ${Array.isArray(data) ? data.length : 'kein Array'}`);
     }
 

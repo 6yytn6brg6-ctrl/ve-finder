@@ -8,7 +8,7 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 ## Aktueller Stand im Repository
 
-- Der produktive Bestand umfasst 466 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
+- Der produktive Bestand umfasst 492 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
 - Seit v3.2 besitzt der V/E Finder ein strukturiertes Quellenmodell pro Station: `sources[]`, `checked_at`, `source_type`, `source_url`, `source_note` und `verification_status`.
 - Altstationen werden nicht automatisch als neu geprüft ausgegeben. Alte freie Quellenangaben werden in das neue Modell gespiegelt und zunächst als `legacy_untracked` geführt, bis eine belastbare Einzelprüfung erfolgt.
 - Neue bzw. neu geprüfte Stationen sollen zusätzlich `confirms[]`, `discovered_via`, `source_owner_country` und `source_dependency` erhalten, damit auch die Unabhängigkeit mehrerer Quellen nachvollziehbar bleibt.
@@ -52,6 +52,21 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 | Camping.info | DACH / europaweit | Camping-/Kontrollquelle | öffentliche Durchreise-Nutzung gesondert verifizieren |
 | iOverlander | international | Community-/Kontrollquelle | Community-Angaben nicht allein bestätigen |
 | Öffentliche Facebook-/Instagram-Beiträge | international | Entdeckungs-/Störungsquelle | nie ungeprüft importieren; Betreiber, Kommune oder redaktionelle Fachquelle gegenprüfen |
+
+## Tourism Open Data und breit durchsuchbare Register
+
+| Quelle | Reichweite | Einsatz im V/E Finder |
+|---|---|---|
+| SaTourN Open Data Finder | Sachsen | freie Exporte/API in CSV, XML, JSON, JSON-LD, GeoJSON, GPX und RDF; POI- und Betreiberhinweise gegen den Bestand prüfen |
+| Contentnetzwerk Brandenburg | Brandenburg | touristische POIs und Stellplätze als kommunale/regionale Fundquelle; Einzelzugang weiterhin verifizieren |
+| ThüCAT | Thüringen | zentrale touristische Wissensdatenbank; für Orts-, Betreiber- und Infrastruktursuche verwenden |
+| Tourismusdatenbank Mecklenburg-Vorpommern | Mecklenburg-Vorpommern | REST/GraphQL/JSON-LD verfügbar; produktiver API-Zugang kostenpflichtig, öffentliche Einzelseiten nutzbar |
+| DZT Knowledge Graph | deutschlandweit | sehr großer Metadatenbestand; Testzugriff bzw. API-Schlüssel erforderlich, daher nicht als frei abrufbarer Vollimport behandeln |
+| BORDATLAS Entsorgungsstations-PDF | europaweit | wöchentlicher Kandidatenabzug; Durchreise-Freigabe nur über Detailseite oder zweite Quelle übernehmen |
+| promobil-Feld „V/E für Durchreisende“ | europaweit | sehr präziser Filter für Service ohne Übernachtung; Preise, Saison und einzelne Leistungen als redaktionelle Bestätigung nutzen |
+| Stellplatzführer-Feld „V+E für Durchreisende“ | europaweit | zweite strukturierte Fachquelle; besonders für Preise, Koordinaten und ausdrückliche Verbote nützlich |
+
+Der breite Sweep vom 22.08.2026 ist in `docs/deep-source-sweep-batch-1.md` dokumentiert. Geschlossene Gruppen und loginpflichtige Inhalte bleiben außerhalb des reproduzierbaren Audits.
 
 ## Internationale Quellen für deutsche V/E-Stationen
 
@@ -113,7 +128,7 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 ## OSM-Audit – erste Ausbaustufe
 
-Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 466er Bestands:
+Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 492er Bestands:
 
 - Berlin (`DE-BE`)
 - Brandenburg (`DE-BB`)
