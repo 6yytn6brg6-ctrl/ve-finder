@@ -2,7 +2,7 @@
 
 Stand: 2026-08-22
 
-Ziel: Neue bzw. bislang im V/E-Finder-Bestand nicht erkannte Durchreise-V/E-Stellen aus OSM und internationalen Kontrollquellen gegen aktuelle Primärquellen prüfen. Noch kein automatischer Import.
+Ziel: Neue bzw. bislang im V/E-Finder-Bestand nicht erkannte Durchreise-V/E-Stellen aus OSM und internationalen Kontrollquellen gegen aktuelle Primärquellen prüfen. Die vier bestätigten Neufunde werden nach dieser Einzelprüfung mit v3.4 in den produktiven Bestand übernommen.
 
 ## 1. Bad Sulza – Entsorgung Am Gradierwerk
 
@@ -100,13 +100,15 @@ Quellen:
 
 OSM weist einen eigenständigen Kandidaten aus. Verschiedene Quellen bestätigen grundsätzlich eine Sani-Station, aktuelle Hinweise berichten jedoch über einen länger anhaltenden Defekt bzw. Vandalismusschaden. Vor einer Aktivierung im V/E Finder ist eine aktuelle Betreiber-/Stadtbestätigung nötig. Bis dahin Status `temporarily_limited` bzw. `conflict`, nicht `Grün`.
 
-## Konsequenz für den nächsten Daten-Import
+## Umsetzung in v3.4
 
-Für den produktiven Import besonders priorisieren:
+In den produktiven Bestand übernommen:
 
-1. Gerstungen Klärwerk – reine, kostenlose Durchreise-Entsorgung.
-2. Bad Sulza Am Gradierwerk – separat nutzbare kostenlose Entsorgung, Wasser differenziert behandeln.
-3. Eisenach-Hörschel – neue Anlage seit April 2026 mit kompletter V/E.
-4. VINETA CARAVANING Barth – Betreiber erlaubt V/E ausdrücklich auch für Nichtgäste.
+1. `ve-462` Bad Sulza Am Gradierwerk – separate Entsorgung; Wasser bewusst als eingeschränkt behandelt.
+2. `ve-463` Eisenach-Hörschel – neue Anlage seit April 2026 mit kompletter V/E.
+3. `ve-464` Gerstungen Klärwerk – reine, kostenlose Durchreise-Entsorgung ohne zugesichertes Frischwasser.
+4. `ve-465` VINETA CARAVANING Barth – Betreiber erlaubt V/E ausdrücklich auch für Nichtgäste.
 
-Zusätzlich den vorhandenen Leipzig/Melinenburg-Datensatz um die bestätigte Durchreise-V/E-Nutzung ergänzen.
+Der vorhandene Datensatz `ve-265` Leipzig/Melinenburg ist auf bestätigte Durchreise-V/E aktualisiert: Kassette, Grauwasser und Trinkwasser von 08:00 bis 20:00 Uhr für pauschal 10 €. Seine bisher PLZ-genauen Koordinaten wurden präzisiert.
+
+Der produktive Bestand wächst damit von 461 auf 465 Stationen. Bad Berka bleibt wegen der ungeklärten aktuellen Betriebsfähigkeit ausdrücklich außerhalb der aktiven grünen Stationen.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare V/E Finder's 461-station dataset with OpenStreetMap dump-station tags.
+"""Compare V/E Finder's current station dataset with OpenStreetMap dump-station tags.
 
 The output is a verification queue, not an automatic import.  OSM contains many
 campground/marina/customer-only services; those are deliberately separated from
@@ -33,6 +33,8 @@ STATES = {
     "DE-TH": "Thüringen",
 }
 
+EXPECTED_STATION_COUNT = 465
+
 STATE_ALIASES = {
     "Berlin": {"berlin", "be", "de-be"},
     "Brandenburg": {"brandenburg", "bb", "de-bb"},
@@ -60,7 +62,7 @@ def load_vefinder_database(repo_root: Path) -> list[dict]:
     encoded = "".join(p.read_text(encoding="utf-8") for p in parts)
     compressed = base64.b64decode(re.sub(r"\s+", "", encoded))
     data = json.loads(gzip.decompress(compressed).decode("utf-8"))
-    if not isinstance(data, list) or len(data) != 461:
+    if not isinstance(data, list) or len(data) != EXPECTED_STATION_COUNT:
         raise RuntimeError(f"Unerwarteter Datenbestand: {len(data) if isinstance(data, list) else 'kein Array'}")
     return data
 
