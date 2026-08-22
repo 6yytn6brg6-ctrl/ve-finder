@@ -8,7 +8,7 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 ## Aktueller Stand im Repository
 
-- Der produktive Bestand umfasst 461 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
+- Der produktive Bestand umfasst 465 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
 - Seit v3.2 besitzt der V/E Finder ein strukturiertes Quellenmodell pro Station: `sources[]`, `checked_at`, `source_type`, `source_url`, `source_note` und `verification_status`.
 - Altstationen werden nicht automatisch als neu geprüft ausgegeben. Alte freie Quellenangaben werden in das neue Modell gespiegelt und zunächst als `legacy_untracked` geführt, bis eine belastbare Einzelprüfung erfolgt.
 - Neue bzw. neu geprüfte Stationen sollen zusätzlich `confirms[]`, `discovered_via`, `source_owner_country` und `source_dependency` erhalten, damit auch die Unabhängigkeit mehrerer Quellen nachvollziehbar bleibt.
@@ -112,7 +112,7 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 ## OSM-Audit – erste Ausbaustufe
 
-Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 461er Bestands:
+Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 465er Bestands:
 
 - Berlin (`DE-BE`)
 - Brandenburg (`DE-BB`)
