@@ -1,2 +1,2 @@
-V/E Finder v3.4 - 2026-08-22
-465 Stationen; verifizierter Import Batch 2
+V/E Finder v3.5 - 2026-08-22
+466 Stationen; Social-Media-Fundstellen verifiziert und gegengeprüft
