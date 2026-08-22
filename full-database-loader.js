@@ -1,4 +1,4 @@
-// V/E Finder v1.1: load the full 461-station database.
+// V/E Finder v3.2: load the full 461-station database and normalize source provenance.
 // The database is gzip-compressed and split into small Base64 chunks for reliable hosting.
 (() => {
   const nativeFetch = window.fetch.bind(window);
@@ -9,6 +9,60 @@
     'data/stations-461.part03.b64?v=20260820-11',
     'data/stations-461.part04.b64?v=20260820-11'
   ];
+
+  const clean = value => String(value ?? '').trim();
+  const dateOrNull = value => clean(value) || null;
+
+  function normalizeSourceEntry(entry = {}) {
+    return {
+      type: clean(entry.type) || 'legacy',
+      name: clean(entry.name) || 'Unbekannte Quelle',
+      url: clean(entry.url) || null,
+      checked_at: dateOrNull(entry.checked_at),
+      note: clean(entry.note),
+      confirms: Array.isArray(entry.confirms) ? entry.confirms.map(clean).filter(Boolean) : []
+    };
+  }
+
+  function normalizeStation(station = {}) {
+    const result = { ...station };
+    let sources = Array.isArray(result.sources)
+      ? result.sources.map(normalizeSourceEntry)
+      : [];
+
+    const legacySource = clean(result.source);
+    const legacyChecked = dateOrNull(result.lastChecked);
+
+    // The old database has one free-text `source` field. Keep it, but mirror it
+    // into the structured model without pretending that it is already audited.
+    if (!sources.length && legacySource) {
+      sources.push(normalizeSourceEntry({
+        type: 'legacy',
+        name: legacySource,
+        url: result.source_url,
+        checked_at: result.checked_at || legacyChecked,
+        note: result.source_note || 'Aus dem Altbestand übernommen; Einzelquelle noch nicht im neuen Quellenregister geprüft.'
+      }));
+    }
+
+    result.sources = sources;
+    result.checked_at = dateOrNull(result.checked_at) || legacyChecked;
+    result.source_type = clean(result.source_type) || (legacySource ? 'legacy' : 'legacy_untracked');
+    result.source_url = clean(result.source_url) || (sources.find(item => item.url)?.url ?? null);
+    result.source_note = clean(result.source_note) || (
+      legacySource
+        ? 'Altbestand: Quellenangabe vorhanden, aber noch nicht nach dem neuen Verfahren verifiziert.'
+        : 'Altbestand: Einzelquelle noch nicht dokumentiert.'
+    );
+    result.verification_status = clean(result.verification_status) || 'legacy_untracked';
+
+    return result;
+  }
+
+  window.VEFinderProvenance = {
+    normalizeStation,
+    normalizeSourceEntry
+  };
 
   async function loadFullDatabase() {
     if (!('DecompressionStream' in window)) {
@@ -32,7 +86,23 @@
     if (!Array.isArray(data) || data.length !== 461) {
       throw new Error(`Unerwartete Stationsanzahl: ${Array.isArray(data) ? data.length : 'kein Array'}`);
     }
-    return text;
+
+    return JSON.stringify(data.map(normalizeStation));
+  }
+
+  async function normalizedFallback(input, init) {
+    const response = await nativeFetch(input, init);
+    if (!response.ok) return response;
+    try {
+      const data = await response.clone().json();
+      if (!Array.isArray(data)) return response;
+      return new Response(JSON.stringify(data.map(normalizeStation)), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json; charset=utf-8' }
+      });
+    } catch (_) {
+      return response;
+    }
   }
 
   window.fetch = async (input, init) => {
@@ -49,7 +119,7 @@
       });
     } catch (err) {
       console.error('Vollständige V/E-Datenbank konnte nicht geladen werden; Testbestand wird verwendet.', err);
-      return nativeFetch(input, init);
+      return normalizedFallback(input, init);
     }
   };
 })();
