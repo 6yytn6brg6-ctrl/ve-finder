@@ -1,2 +1,2 @@
-V/E Finder v3.8 - 2026-08-23
-492 Stationen; Navigationsstart direkt aus der Routenkarte
+V/E Finder v3.9 - 2026-08-23
+492 Stationen; genaue Stationsposition direkt auf der Karte festlegen

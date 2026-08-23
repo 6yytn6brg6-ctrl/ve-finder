@@ -183,13 +183,16 @@
   // Only a real finger/mouse gesture activates viewport mode. Programmatic
   // setView/fitBounds calls (locate, route display, radius/state framing) do not.
   const mapEl = map.getContainer();
-  const markGesture = () => { mapGesture = true; };
+  const markGesture = () => {
+    if (document.body.classList.contains('position-pick-mode')) return;
+    mapGesture = true;
+  };
   mapEl.addEventListener('pointerdown', markGesture, { passive: true });
   mapEl.addEventListener('touchstart', markGesture, { passive: true });
   mapEl.addEventListener('wheel', markGesture, { passive: true });
 
   map.on('moveend', () => {
-    if (!mapGesture || document.body.classList.contains('route-mode')) return;
+    if (!mapGesture || document.body.classList.contains('route-mode') || document.body.classList.contains('position-pick-mode')) return;
     mapGesture = false;
 
     viewportMode = true;
