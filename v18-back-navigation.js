@@ -14,6 +14,7 @@
     if (status.includes('Kartenausschnitt aktiv')) return 'Kartenausschnitt';
 
     const value = sortSelect?.value || '';
+    if (value === 'route') return 'Stationen entlang der Route';
     if (value.startsWith('state:')) return value.slice(6);
 
     const distance = value.match(/^distance(10|25|50)$/);

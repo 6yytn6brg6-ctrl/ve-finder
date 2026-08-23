@@ -1,4 +1,4 @@
-// V/E Finder v2.2: edit station data locally and optionally replace station coordinates with the current GPS position.
+// V/E Finder v3.9: edit station data locally and set exact coordinates by GPS or directly on the map.
 (() => {
   const OVERRIDE_KEY = 'vefinder.overrides.v1';
   let overrides = JSON.parse(localStorage.getItem(OVERRIDE_KEY) || '{}');
@@ -80,7 +80,11 @@
     let draftLat = Number(x.lat);
     let draftLon = Number(x.lon);
     let draftCoordinateQuality = x.coordinateQuality || '';
-    let gpsWasTaken = false;
+    let positionWasChanged = false;
+    let pickerMarker = null;
+    let pickerClickHandler = null;
+    let pickerReturnView = null;
+    let pickerLayerWasVisible = false;
 
     editContent.innerHTML = `<div class="sheet-inner">
       <div class="sheet-head">
@@ -113,9 +117,10 @@
         <label>Hinweis<textarea name="note">${escapeHtml(x.note)}</textarea></label>
 
         <div class="edit-gps-card">
-          <div><strong>GPS-Position</strong><div class="statusmsg" id="editGpsCoords">Gespeichert: ${coordText(draftLat, draftLon)}</div></div>
+          <div><strong>Genaue Position</strong><div class="statusmsg" id="editGpsCoords">Gespeichert: ${coordText(draftLat, draftLon)}</div></div>
           <button type="button" class="outline edit-gps-btn" id="takeGpsBtn">◎ Aktuellen GPS-Standort übernehmen</button>
-          <div class="statusmsg" id="editGpsStatus">Vor Ort an der V/E-Stelle tippen. Gespeichert wird erst mit „Änderungen speichern“.</div>
+          <button type="button" class="outline edit-gps-btn" id="pickMapBtn">⌖ Position auf Karte festlegen</button>
+          <div class="statusmsg" id="editGpsStatus">Vor Ort kannst du GPS verwenden. Aus der Ferne lässt sich der genaue Punkt auf der Karte markieren. Gespeichert wird erst mit „Änderungen speichern“.</div>
         </div>
 
         <button type="submit" class="primary">Änderungen speichern</button>
@@ -123,6 +128,89 @@
     </div>`;
 
     document.getElementById('closeEditBtn')?.addEventListener('click', () => editDialog.close());
+
+    function updatePickerPosition(latlng, moveMarker = true) {
+      if (!latlng || !pickerMarker) return;
+      if (moveMarker) pickerMarker.setLatLng(latlng);
+      const coords = document.getElementById('positionPickCoords');
+      if (coords) coords.textContent = coordText(latlng.lat, latlng.lng);
+    }
+
+    function finishMapPicker(usePosition) {
+      const selected = pickerMarker?.getLatLng();
+
+      if (pickerClickHandler) map.off('click', pickerClickHandler);
+      pickerClickHandler = null;
+      if (pickerMarker) pickerMarker.remove();
+      pickerMarker = null;
+      document.getElementById('positionPickPanel')?.remove();
+      document.body.classList.remove('position-pick-mode');
+
+      if (pickerLayerWasVisible && !map.hasLayer(layer)) layer.addTo(map);
+
+      if (usePosition && selected) {
+        draftLat = selected.lat;
+        draftLon = selected.lng;
+        draftCoordinateQuality = 'exact';
+        positionWasChanged = true;
+
+        const gpsCoords = document.getElementById('editGpsCoords');
+        const gpsStatus = document.getElementById('editGpsStatus');
+        const pickMapBtn = document.getElementById('pickMapBtn');
+        if (gpsCoords) gpsCoords.textContent = `Neu: ${coordText(draftLat, draftLon)}`;
+        if (gpsStatus) gpsStatus.textContent = 'Kartenposition übernommen. Jetzt „Änderungen speichern“ tippen.';
+        if (pickMapBtn) pickMapBtn.textContent = '✓ Kartenposition übernommen';
+      }
+
+      requestAnimationFrame(() => {
+        map.invalidateSize({ animate: false, pan: false });
+        if (pickerReturnView) {
+          map.setView(pickerReturnView.center, pickerReturnView.zoom, { animate: false });
+        }
+        pickerReturnView = null;
+        if (!editDialog.open) editDialog.showModal();
+      });
+    }
+
+    function startMapPicker() {
+      const startLat = Number.isFinite(draftLat) ? draftLat : map.getCenter().lat;
+      const startLon = Number.isFinite(draftLon) ? draftLon : map.getCenter().lng;
+      pickerReturnView = { center: map.getCenter(), zoom: map.getZoom() };
+      pickerLayerWasVisible = map.hasLayer(layer);
+
+      if (editDialog.open) editDialog.close();
+      document.body.classList.add('position-pick-mode');
+      if (pickerLayerWasVisible) map.removeLayer(layer);
+
+      pickerMarker = L.marker([startLat, startLon], {
+        draggable: true,
+        zIndexOffset: 3000,
+        title: 'Genaue Position'
+      }).addTo(map);
+
+      const panel = document.createElement('div');
+      panel.id = 'positionPickPanel';
+      panel.innerHTML = `
+        <strong>Genaue Position markieren</strong>
+        <div>Tippe auf den richtigen Punkt oder ziehe die Markierung dorthin.</div>
+        <div class="position-pick-coords" id="positionPickCoords">${coordText(startLat, startLon)}</div>
+        <div class="position-pick-actions">
+          <button type="button" class="outline" id="cancelPositionPick">Abbrechen</button>
+          <button type="button" class="primary" id="savePositionPick">Position übernehmen</button>
+        </div>`;
+      document.body.appendChild(panel);
+
+      pickerClickHandler = event => updatePickerPosition(event.latlng);
+      map.on('click', pickerClickHandler);
+      pickerMarker.on('drag', event => updatePickerPosition(event.target.getLatLng(), false));
+      document.getElementById('cancelPositionPick')?.addEventListener('click', () => finishMapPicker(false));
+      document.getElementById('savePositionPick')?.addEventListener('click', () => finishMapPicker(true));
+
+      map.setView([startLat, startLon], 16, { animate: false });
+      requestAnimationFrame(() => map.invalidateSize({ animate: false, pan: false }));
+    }
+
+    document.getElementById('pickMapBtn')?.addEventListener('click', startMapPicker);
 
     document.getElementById('takeGpsBtn')?.addEventListener('click', async event => {
       const button = event.currentTarget;
@@ -137,7 +225,7 @@
         draftLat = fix.lat;
         draftLon = fix.lon;
         draftCoordinateQuality = 'exact';
-        gpsWasTaken = true;
+        positionWasChanged = true;
 
         // Keep the app's current-position marker fresh as well.
         pos = { lat: fix.lat, lon: fix.lon };
@@ -194,8 +282,8 @@
       editDialog.close();
       render();
       if (statusMsg) {
-        statusMsg.textContent = gpsWasTaken
-          ? `${update.name || 'Station'} · Daten und GPS-Position gespeichert`
+        statusMsg.textContent = positionWasChanged
+          ? `${update.name || 'Station'} · Daten und genaue Position gespeichert`
           : `${update.name || 'Station'} · Änderung gespeichert`;
       }
       if (target) detail(target);
@@ -254,6 +342,66 @@
     }
     .edit-gps-card .statusmsg { padding:3px 0 0; }
     .edit-gps-btn { width:100%; }
+    body.position-pick-mode {
+      padding-bottom:0 !important;
+      overflow:hidden !important;
+    }
+    body.position-pick-mode .searchbar,
+    body.position-pick-mode #filters,
+    body.position-pick-mode .results-panel,
+    body.position-pick-mode .bottomnav { display:none !important; }
+    body.position-pick-mode main { display:block !important; }
+    body.position-pick-mode #map {
+      position:fixed !important;
+      left:0;
+      right:0;
+      top:calc(env(safe-area-inset-top) + 74px);
+      bottom:0;
+      width:100% !important;
+      height:auto !important;
+      z-index:5500;
+    }
+    body.position-pick-mode .ve-active-flag-icon { display:none !important; }
+    #positionPickPanel {
+      position:fixed;
+      left:12px;
+      right:12px;
+      bottom:calc(12px + env(safe-area-inset-bottom));
+      z-index:7000;
+      display:grid;
+      gap:6px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fffffff2;
+      color:var(--ink);
+      font-size:12px;
+      box-shadow:0 5px 24px #0005;
+      backdrop-filter:blur(16px);
+    }
+    .position-pick-coords {
+      color:var(--muted);
+      font-variant-numeric:tabular-nums;
+    }
+    .position-pick-actions {
+      display:grid;
+      grid-template-columns:1fr 1.25fr;
+      gap:8px;
+      margin-top:2px;
+    }
+    .position-pick-actions button { width:100%; }
+    html[data-theme="dark"] #positionPickPanel {
+      background:#18201df2;
+      color:var(--ink);
+      border-color:var(--line);
+    }
+    @media (orientation:landscape) and (max-height:600px) {
+      body.position-pick-mode #map { top:calc(env(safe-area-inset-top) + 46px); }
+      #positionPickPanel {
+        left:auto;
+        width:min(360px,46vw);
+      }
+    }
     html[data-theme="dark"] .edit-service-grid select {
       background:#1d2723;
       color:var(--ink);

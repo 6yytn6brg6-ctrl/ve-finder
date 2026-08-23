@@ -8,7 +8,7 @@
 
   function updateFocusedCard() {
     frame = 0;
-    if (document.body.classList.contains('route-mode')) return;
+    if (document.body.classList.contains('route-mode') || document.body.classList.contains('position-pick-mode')) return;
 
     const cards = [...resultsEl.querySelectorAll('.result-card')];
     if (!cards.length) return;

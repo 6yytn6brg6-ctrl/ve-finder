@@ -126,7 +126,7 @@
 
   function updateActiveFromScroll() {
     scrollFrame = 0;
-    if (document.body.classList.contains('route-mode')) return;
+    if (document.body.classList.contains('route-mode') || document.body.classList.contains('position-pick-mode')) return;
 
     const cards = [...resultsEl.querySelectorAll('.result-card')];
     if (!cards.length) {
@@ -154,7 +154,7 @@
   }
 
   function fitCurrentResults() {
-    if (!isDistanceContext() || document.body.classList.contains('route-mode')) return;
+    if (!isDistanceContext() || document.body.classList.contains('route-mode') || document.body.classList.contains('position-pick-mode')) return;
     const entries = filtered();
     if (!entries.length) return;
 
