@@ -1,2 +1,2 @@
-V/E Finder v3.6 - 2026-08-22
-492 Stationen; breiter Quellen-Sweep mit 26 Neuzugängen und 31 Bestandsprüfungen
+V/E Finder v3.7 - 2026-08-23
+492 Stationen; zusätzlicher Filter „Nur Grün“

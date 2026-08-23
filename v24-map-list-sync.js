@@ -222,7 +222,7 @@
   });
 
   searchInput?.addEventListener('input', () => scheduleFit(280));
-  ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed'].forEach(id => {
+  ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed', 'fGreenOnly'].forEach(id => {
     document.getElementById(id)?.addEventListener('change', () => scheduleFit(280));
   });
 

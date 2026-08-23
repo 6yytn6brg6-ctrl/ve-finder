@@ -70,6 +70,7 @@ function filtered(){
       if($('fWater').checked && !yes(x.water)) return false;
       if($('fTrash').checked && !yes(x.trash)) return false;
       if($('fConfirmed').checked && !['Grün','Gelb'].includes(x.color)) return false;
+      if($('fGreenOnly').checked && x.color!=='Grün') return false;
       return true;
     })
     .sort((a,b)=>
@@ -271,7 +272,7 @@ $('allBtn').onclick=()=>{
 };
 $('addBtn').onclick=add;
 $('dataBtn').onclick=()=>alert(`${seed.length} Datenbank-Station(en) · ${user.length} eigene Station(en) auf diesem Gerät.`);
-['searchInput','radiusSelect','fCassette','fGrey','fWater','fTrash','fConfirmed','sortSelect'].forEach(id=>{
+['searchInput','radiusSelect','fCassette','fGrey','fWater','fTrash','fConfirmed','fGreenOnly','sortSelect'].forEach(id=>{
   $(id).addEventListener(id==='searchInput'?'input':'change',render);
 });
 
