@@ -184,7 +184,7 @@
   // setView/fitBounds calls (locate, route display, radius/state framing) do not.
   const mapEl = map.getContainer();
   const markGesture = () => {
-    if (document.body.classList.contains('position-pick-mode')) return;
+    if (document.body.classList.contains('position-pick-mode') || document.body.classList.contains('route-corridor-active')) return;
     mapGesture = true;
   };
   mapEl.addEventListener('pointerdown', markGesture, { passive: true });
@@ -278,7 +278,7 @@
 
   routeBackBtn.addEventListener('click', () => leaveRouteMode(true));
 
-  ['nearbyBtn', 'allBtn', 'addBtn', 'dataBtn'].forEach(id => {
+  ['nearbyBtn', 'allBtn', 'routeSearchBtn', 'addBtn', 'dataBtn'].forEach(id => {
     document.getElementById(id)?.addEventListener('click', () => {
       if (document.body.classList.contains('route-mode')) leaveRouteMode(false);
     }, true);

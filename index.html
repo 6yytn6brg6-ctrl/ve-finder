@@ -7,30 +7,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="V/E Finder">
-  <meta name="ve-finder-build" content="20260823-39">
+  <meta name="ve-finder-build" content="20260823-40">
   <title>V/E Finder</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="styles.css?v=20260820-4">
 </head>
 <body>
 <div id="app">
-<header class="topbar"><div><div class="eyebrow">OPENSTREETMAP · V/E FINDER · v3.9</div><h1>V/E Finder</h1></div><button id="locateBtn" class="iconbtn" aria-label="Meinen Standort anzeigen">◎</button></header>
+<header class="topbar"><div><div class="eyebrow">OPENSTREETMAP · V/E FINDER · v4.0</div><h1>V/E Finder</h1></div><button id="locateBtn" class="iconbtn" aria-label="Meinen Standort anzeigen">◎</button></header>
 <section class="searchbar"><input id="searchInput" type="search" placeholder="Ort, PLZ, Händler, Marina …"><button id="filterBtn" class="secondary">Filter</button></section>
 <section id="filters" class="filters hidden"><div class="filter-grid"><label>Radius<select id="radiusSelect"><option value="10">10 km</option><option value="25" selected>25 km</option><option value="50">50 km</option><option value="100">100 km</option><option value="9999">alle</option></select></label><label><input type="checkbox" id="fCassette"> Kassette</label><label><input type="checkbox" id="fGrey"> Grauwasser</label><label><input type="checkbox" id="fWater"> Frischwasser</label><label><input type="checkbox" id="fTrash"> Müll</label><label><input type="checkbox" id="fConfirmed" checked> nur Grün/Gelb</label><label><input type="checkbox" id="fGreenOnly"> Nur Grün</label></div><div class="legend compact"><span><i class="dot green"></i> bestätigt</span><span><i class="dot yellow"></i> prüfen</span><span><i class="dot white"></i> Kandidat</span><span><i class="dot red"></i> keine Durchreise-V/E</span></div></section>
 <main><div id="map"></div><section class="results-panel"><div class="panel-head"><div><strong id="resultCount">0</strong> Treffer</div><select id="sortSelect"><option value="distance">Entfernung</option><option value="state">Bundesland</option><option value="name">Name</option></select></div><div id="statusMsg" class="statusmsg">Online-Testfassung: Standortfreigabe erlaubt die Suche in deiner Nähe.</div><div id="results" class="results"></div></section></main>
-<nav class="bottomnav"><button id="nearbyBtn" class="active">⌖<span>In der Nähe</span></button><button id="allBtn">≡<span>Alle</span></button><button id="addBtn">＋<span>Neu</span></button><button id="dataBtn">⇅<span>Daten</span></button></nav>
+<nav class="bottomnav"><button id="nearbyBtn" class="active">⌖<span>In der Nähe</span></button><button id="allBtn">≡<span>Alle</span></button><button id="routeSearchBtn">↝<span>Route</span></button><button id="addBtn">＋<span>Neu</span></button><button id="dataBtn">⇅<span>Daten</span></button></nav>
 </div>
-<dialog id="detailDialog" class="sheet"><div id="detailContent"></div></dialog><dialog id="addDialog" class="sheet"><div id="addContent"></div></dialog><dialog id="dataDialog" class="sheet"><div id="dataContent"></div></dialog>
+<dialog id="detailDialog" class="sheet"><div id="detailContent"></div></dialog><dialog id="addDialog" class="sheet"><div id="addContent"></div></dialog><dialog id="dataDialog" class="sheet"><div id="dataContent"></div></dialog><dialog id="routeSearchDialog" class="sheet"><div id="routeSearchContent"></div></dialog>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="full-database-loader.js?v=20260822-36"></script>
 <script src="app.js?v=20260823-37"></script>
 <script src="database-ui-note.js?v=20260820-11"></script>
 <script src="ui-navigation-fix.js?v=20260821-12"></script>
 <script src="v13-ui-fix.js?v=20260821-13"></script>
-<script src="v15-navigation-polish.js?v=20260821-15"></script>
-<script src="v16-map-explore.js?v=20260823-39"></script>
+<script src="v15-navigation-polish.js?v=20260823-40"></script>
+<script src="v16-map-explore.js?v=20260823-40"></script>
 <script src="nav-route-fix.js?v=20260821-14"></script>
-<script src="v18-back-navigation.js?v=20260823-37"></script>
+<script src="v18-back-navigation.js?v=20260823-40"></script>
 <script src="v19-user-delete.js?v=20260821-20"></script>
 <script src="v21-station-edit.js?v=20260823-39"></script>
 <script src="v24-map-list-sync.js?v=20260823-39"></script>
@@ -43,4 +43,5 @@
 <script src="v32-provenance.js?v=20260822-32"></script>
 <script src="v33-data-status-filter.js?v=20260823-37"></script>
 <script src="v38-map-navigation.js?v=20260823-38"></script>
+<script src="v40-route-corridor.js?v=20260823-40"></script>
 </body></html>

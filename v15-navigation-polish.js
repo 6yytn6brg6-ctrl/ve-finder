@@ -1,14 +1,15 @@
-// V/E Finder v1.5: make bottom navigation behave like real app sections.
+// V/E Finder v4.0: make bottom navigation behave like real app sections, including route search.
 (() => {
   const detailDialog = document.getElementById('detailDialog');
   const addDialog = document.getElementById('addDialog');
   const dataDialog = document.getElementById('dataDialog');
+  const routeSearchDialog = document.getElementById('routeSearchDialog');
   const dataContent = document.getElementById('dataContent');
-  const navIds = ['nearbyBtn', 'allBtn', 'addBtn', 'dataBtn'];
+  const navIds = ['nearbyBtn', 'allBtn', 'routeSearchBtn', 'addBtn', 'dataBtn'];
 
   const style = document.createElement('style');
   style.textContent = `
-    #dataDialog[open], #addDialog[open] {
+    #dataDialog[open], #addDialog[open], #routeSearchDialog[open] {
       position: fixed;
       inset: auto 0 calc(66px + env(safe-area-inset-bottom)) 0;
       margin: 0 auto;
@@ -57,7 +58,7 @@
   }
 
   function closeSheets(except) {
-    [detailDialog, addDialog, dataDialog].forEach(dialog => {
+    [detailDialog, addDialog, dataDialog, routeSearchDialog].forEach(dialog => {
       if (dialog !== except) closeDialog(dialog);
     });
   }
