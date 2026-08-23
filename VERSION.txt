@@ -1,2 +1,2 @@
-V/E Finder v3.7 - 2026-08-23
-492 Stationen; zusätzlicher Filter „Nur Grün“
+V/E Finder v3.8 - 2026-08-23
+492 Stationen; Navigationsstart direkt aus der Routenkarte
