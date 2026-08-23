@@ -44,7 +44,7 @@
       searchInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
 
-    ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed'].forEach(id => {
+    ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed', 'fGreenOnly'].forEach(id => {
       const input = document.getElementById(id);
       if (input) input.checked = false;
     });

@@ -27,6 +27,7 @@
     if (document.getElementById('fWater')?.checked && !yesValue(x.water)) return false;
     if (document.getElementById('fTrash')?.checked && !yesValue(x.trash)) return false;
     if (document.getElementById('fConfirmed')?.checked && !['Grün', 'Gelb'].includes(x.color)) return false;
+    if (document.getElementById('fGreenOnly')?.checked && x.color !== 'Grün') return false;
     return true;
   }
 
@@ -220,7 +221,7 @@
     setTimeout(fitPlaceResults, 430);
   });
 
-  ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed'].forEach(id => {
+  ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed', 'fGreenOnly'].forEach(id => {
     document.getElementById(id)?.addEventListener('change', () => {
       if (!placeOrigin || placeQuery !== normalize(searchInput.value)) return;
       render();

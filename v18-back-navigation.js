@@ -7,7 +7,7 @@
   const searchInput = document.getElementById('searchInput');
   const statusMsg = document.getElementById('statusMsg');
 
-  const filterIds = ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed'];
+  const filterIds = ['fCassette', 'fGrey', 'fWater', 'fTrash', 'fConfirmed', 'fGreenOnly'];
 
   function contextLabel() {
     const status = statusMsg?.textContent || '';
