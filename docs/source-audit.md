@@ -1,14 +1,19 @@
 # V/E Finder – Quellen-Audit
 
-Stand: 2026-08-22
+Stand: 2026-08-23
 
 ## Ziel
 
 Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Station soll möglichst durch mindestens eine offene oder offizielle Quelle belegbar sein; bei wichtigen Angaben wie öffentliche Zugänglichkeit, Grauwasser, Kassette, Frischwasser und Gebühren sind zwei voneinander unabhängige Hinweise ideal.
 
+Der Abgleich ist semantisch und mehrsprachig: Er sucht nach der erlaubten V/E-Nutzung ohne
+Übernachtungszwang, nicht nur nach festen Wörtern oder einzelnen Plattform-Kategorien. Das
+verbindliche Verfahren, die Sprachsignale und das Quellenregister stehen in
+`docs/semantic-source-audit.md` und `docs/source-registry.json`.
+
 ## Aktueller Stand im Repository
 
-- Der produktive Bestand umfasst 492 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
+- Der produktive Bestand umfasst 498 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
 - Seit v3.2 besitzt der V/E Finder ein strukturiertes Quellenmodell pro Station: `sources[]`, `checked_at`, `source_type`, `source_url`, `source_note` und `verification_status`.
 - Altstationen werden nicht automatisch als neu geprüft ausgegeben. Alte freie Quellenangaben werden in das neue Modell gespiegelt und zunächst als `legacy_untracked` geführt, bis eine belastbare Einzelprüfung erfolgt.
 - Neue bzw. neu geprüfte Stationen sollen zusätzlich `confirms[]`, `discovered_via`, `source_owner_country` und `source_dependency` erhalten, damit auch die Unabhängigkeit mehrerer Quellen nachvollziehbar bleibt.
@@ -41,14 +46,14 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 | Quelle | Herkunft | Rolle | Auditstatus |
 |---|---|---|---|
-| AlpacaCamping | Deutschland | Lücken-/Kontrollquelle | systematischer Abgleich offen |
-| BORDATLAS / Reisemobil International | Deutschland | Lücken-/Kontrollquelle | systematischer Abgleich offen; keine pauschale Datenbankübernahme |
-| promobil | Deutschland | Lücken-/Kontrollquelle | systematischer Abgleich offen |
-| stellplatz.info | DACH | Lücken-/Kontrollquelle | systematischer Abgleich offen |
+| AlpacaCamping | Deutschland | Lücken-/Kontrollquelle | vollständige öffentliche Suchmatrix am 23.08.2026 gelaufen; nicht öffentlich indexierte Inhalte bleiben Zugriffsgrenze |
+| BORDATLAS / Reisemobil International | Deutschland | Lücken-/Kontrollquelle | vollständige öffentliche Suchmatrix am 23.08.2026 gelaufen; keine pauschale Datenbankübernahme |
+| promobil | Deutschland | Lücken-/Kontrollquelle | strukturierte Detailtreffer im vollständigen Ost-Lauf einzeln geprüft |
+| stellplatz.info | DACH | Lücken-/Kontrollquelle | öffentliche Ost-Suchmatrix am 23.08.2026 vollständig gelaufen |
 | PiNCAMP | Deutschland | Camping-/Kontrollquelle | Durchreise-V/E gesondert prüfen |
-| FREEONTOUR | Deutschland | Lücken-/Kontrollquelle | systematischer Abgleich offen |
+| FREEONTOUR | Deutschland | Lücken-/Kontrollquelle | öffentliche Ost-Suchmatrix am 23.08.2026 vollständig gelaufen |
 | VanSite | Deutschland | Betreiber-/Stellplatzquelle | Zugang/Service einzeln prüfen |
-| StayFree | europaweit | Community-/Kontrollquelle | systematischer Abgleich offen |
+| StayFree | europaweit | Community-/Kontrollquelle | öffentliche Ost-Suchmatrix am 23.08.2026 vollständig gelaufen |
 | Camping.info | DACH / europaweit | Camping-/Kontrollquelle | öffentliche Durchreise-Nutzung gesondert verifizieren |
 | iOverlander | international | Community-/Kontrollquelle | Community-Angaben nicht allein bestätigen |
 | Öffentliche Facebook-/Instagram-Beiträge | international | Entdeckungs-/Störungsquelle | nie ungeprüft importieren; Betreiber, Kommune oder redaktionelle Fachquelle gegenprüfen |
@@ -97,7 +102,7 @@ Der breite Sweep vom 22.08.2026 ist in `docs/deep-source-sweep-batch-1.md` dokum
 
 | Quelle | Stärke für V/E Finder | Rolle |
 |---|---|---|
-| **park4night** | sehr hoch – Kategorie `VE ohne Parkmöglichkeit`; aktuelle Nutzerberichte | Priorität A für Lücken und Störungen |
+| **park4night** | sehr hoch – Kategorie `VE ohne Parkmöglichkeit`, aber auch Campingplätze und Stellplätze mit Durchreise-V/E; aktuelle Nutzerberichte | Priorität A für Lücken und Störungen; nie nur eine Kategorie als Vollabgleich behandeln |
 | **CaraMaps** | sehr hoch – 100.000+ Adressen, Service Areas sowie Wasser/Entleerung | Priorität A/B |
 | **Camping-car.com / Camping-Car Magazine** | hoch – eigener Deutschland-Katalog mit Service-/Camping-Aires, regionale Listen und konkrete Servicefelder | zusätzliche französische Gegenquelle |
 | **Camping-Car Park** | sehr hoch bei eigenen deutschen Standorten – Betreiber-Netz mit Wasser und Grau-/Schwarzwasserentsorgung | Primär-/Betreiberquelle, wenn Standort direkt geführt wird |
@@ -128,7 +133,7 @@ Der breite Sweep vom 22.08.2026 ist in `docs/deep-source-sweep-batch-1.md` dokum
 
 ## OSM-Audit – erste Ausbaustufe
 
-Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 492er Bestands:
+Der automatisierte Vergleich konzentriert sich auf die sechs Bundesländer des aktuellen 498er Bestands:
 
 - Berlin (`DE-BE`)
 - Brandenburg (`DE-BB`)
@@ -176,13 +181,13 @@ Zwei Fundstellen zählen nur dann als `cross_checked`, wenn sie tatsächlich una
 ## Nächste Audit-Reihenfolge
 
 1. OSM-Vollabgleich in den sechs ostdeutschen Bundesländern weiter verifizieren und clustern.
-2. Campercontact-Serviceplätze systematisch vergleichen.
-3. park4night-Kategorie `VE ohne Parkmöglichkeit` systematisch vergleichen.
-4. CaraMaps-Service Areas abgleichen.
-5. Camping-car.com als zusätzliche französische Deutschland-Quelle prüfen.
-6. Nomad Camper und Camperguru gezielt für Polen-/Tschechien-Perspektive und Grenzregionen auswerten.
-7. Camperstop und KampeerHub als weitere Kontrollquellen einsetzen.
+2. Nicht öffentlich indexierte Detailbestände der fünf im Lauf unergiebigen Portale über Betreiber-/Kommunalquellen kompensieren.
+3. Die am 23.08.2026 vollständig gelaufene A-/B-Quellenmatrix regelmäßig wiederholen.
+4. Neue Fundportale sofort in Register und Suchmatrix aufnehmen.
+5. Pro Quelle sowohl positive als auch negative Zugangsformulierungen und Kurzzeittarife prüfen.
+6. Quellenabhängigkeiten dokumentieren und jeden echten Neufund gegen Betreiber, Kommune oder eine unabhängige Fachquelle prüfen.
+7. Das Quellenregister bei jedem neuen Portal oder ausländischen Deutschland-Katalog erweitern.
 8. Herstellerlisten (CamperClean, SANI-STATION u. a.) gegen den Bestand prüfen.
 9. Kommunen, Tourismusverbände und Tourist-Informationen systematisch nach Landkreis/Stadt durchsuchen.
-10. Jeden echten Neufund über Primärquelle bestätigen und erst dann in den produktiven Bestand übernehmen.
-11. Danach Deutschland auf alle 16 Bundesländer erweitern.
+10. Jeden echten Neufund über Primärquelle bestätigen und erst dann grün schalten.
+11. Eine Ausweitung über die sechs vereinbarten ostdeutschen Bundesländer nur als gesonderte, ausdrücklich beauftragte Ausbaustufe beginnen.

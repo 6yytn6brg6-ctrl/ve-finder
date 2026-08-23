@@ -1,2 +1,2 @@
-V/E Finder v4.0 - 2026-08-23
-492 Stationen; Suche nach V/E-Stationen entlang einer Fahrtroute
+V/E Finder v4.2 - 2026-08-23
+498 Stationen; vollständiger semantischer Quellenlauf für die sechs ostdeutschen Bundesländer
