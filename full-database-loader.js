@@ -5,11 +5,11 @@
 (() => {
   const nativeFetch = window.fetch.bind(window);
   const parts = [
-    'data/stations-461.part00.b64?v=20260823-41',
-    'data/stations-461.part01.b64?v=20260823-41',
-    'data/stations-461.part02.b64?v=20260823-41',
-    'data/stations-461.part03.b64?v=20260823-41',
-    'data/stations-461.part04.b64?v=20260823-41'
+    'data/stations-461.part00.b64?v=20260823-42',
+    'data/stations-461.part01.b64?v=20260823-42',
+    'data/stations-461.part02.b64?v=20260823-42',
+    'data/stations-461.part03.b64?v=20260823-42',
+    'data/stations-461.part04.b64?v=20260823-42'
   ];
 
   const clean = value => String(value ?? '').trim();

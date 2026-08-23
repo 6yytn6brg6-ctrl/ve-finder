@@ -6,6 +6,11 @@ Stand: 2026-08-23
 
 Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Station soll möglichst durch mindestens eine offene oder offizielle Quelle belegbar sein; bei wichtigen Angaben wie öffentliche Zugänglichkeit, Grauwasser, Kassette, Frischwasser und Gebühren sind zwei voneinander unabhängige Hinweise ideal.
 
+Der Abgleich ist semantisch und mehrsprachig: Er sucht nach der erlaubten V/E-Nutzung ohne
+Übernachtungszwang, nicht nur nach festen Wörtern oder einzelnen Plattform-Kategorien. Das
+verbindliche Verfahren, die Sprachsignale und das Quellenregister stehen in
+`docs/semantic-source-audit.md` und `docs/source-registry.json`.
+
 ## Aktueller Stand im Repository
 
 - Der produktive Bestand umfasst 493 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
@@ -177,12 +182,12 @@ Zwei Fundstellen zählen nur dann als `cross_checked`, wenn sie tatsächlich una
 
 1. OSM-Vollabgleich in den sechs ostdeutschen Bundesländern weiter verifizieren und clustern.
 2. Campercontact-Serviceplätze systematisch vergleichen.
-3. park4night systematisch und kategorieübergreifend vergleichen: `VE ohne Parkmöglichkeit`, Campingplätze, Reisemobilhäfen und Stellplätze mit ausdrücklich erlaubter Durchreise-V/E.
-4. CaraMaps-Service Areas abgleichen.
-5. Camping-car.com als zusätzliche französische Deutschland-Quelle prüfen.
-6. Nomad Camper und Camperguru gezielt für Polen-/Tschechien-Perspektive und Grenzregionen auswerten.
-7. Camperstop und KampeerHub als weitere Kontrollquellen einsetzen.
+3. Alle A-Quellen im Register semantisch, kategorieübergreifend und in allen angebotenen Sprachen vergleichen.
+4. Danach alle B-Quellen mit derselben Methodik abgleichen.
+5. Pro Quelle sowohl positive als auch negative Zugangsformulierungen und Kurzzeittarife prüfen.
+6. Quellenabhängigkeiten dokumentieren und jeden echten Neufund gegen Betreiber, Kommune oder eine unabhängige Fachquelle prüfen.
+7. Das Quellenregister bei jedem neuen Portal oder ausländischen Deutschland-Katalog erweitern.
 8. Herstellerlisten (CamperClean, SANI-STATION u. a.) gegen den Bestand prüfen.
 9. Kommunen, Tourismusverbände und Tourist-Informationen systematisch nach Landkreis/Stadt durchsuchen.
-10. Jeden echten Neufund über Primärquelle bestätigen und erst dann in den produktiven Bestand übernehmen.
-11. Danach Deutschland auf alle 16 Bundesländer erweitern.
+10. Jeden echten Neufund über Primärquelle bestätigen und erst dann grün schalten.
+11. Den semantischen Abgleich auf alle 16 Bundesländer ausweiten und danach regelmäßig wiederholen.

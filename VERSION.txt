@@ -1,2 +1,2 @@
 V/E Finder v4.1 - 2026-08-23
-493 Stationen; ergänzt um Campingplatz Am Freesenbruch in Zingst
+493 Stationen; semantischer und mehrsprachiger Quellenabgleich eingeführt
