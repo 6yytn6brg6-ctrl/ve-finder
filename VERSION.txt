@@ -1,2 +1,2 @@
-V/E Finder v4.1 - 2026-08-23
-493 Stationen; semantischer und mehrsprachiger Quellenabgleich eingeführt
+V/E Finder v4.2 - 2026-08-23
+498 Stationen; vollständiger semantischer Quellenlauf für die sechs ostdeutschen Bundesländer

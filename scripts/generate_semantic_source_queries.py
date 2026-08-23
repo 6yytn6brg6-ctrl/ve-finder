@@ -12,6 +12,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "docs" / "source-registry.json"
+PROJECT_STATES = (
+    "Berlin",
+    "Brandenburg",
+    "Mecklenburg-Vorpommern",
+    "Sachsen",
+    "Sachsen-Anhalt",
+    "Thüringen",
+)
 
 PHRASE_GROUPS = {
     "de": {
@@ -104,14 +112,41 @@ def rows(region: str) -> list[dict[str, str]]:
     return output
 
 
+def project_rows() -> list[dict[str, str]]:
+    """Return the complete 580-query matrix for the agreed six-state scope."""
+    region = "(" + " OR ".join(f'\"{state}\"' for state in PROJECT_STATES) + ")"
+    output = rows(region)
+    sources = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    for source in sources:
+        for state in PROJECT_STATES:
+            output.append({
+                "priority": source["priority"],
+                "source": source["name"],
+                "domain": source["domain"],
+                "language": "all",
+                "concept": "state_coverage",
+                "query": (
+                    f'site:{source["domain"]} Wohnmobil '
+                    '(Entsorgung OR "Ver- und Entsorgung" OR Servicestation OR '
+                    f'"dump station" OR "aire de services") "{state}"'
+                ),
+            })
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--region", default="", help="Bundesland, Landkreis oder Ort")
+    parser.add_argument(
+        "--project-matrix",
+        action="store_true",
+        help="vollständige Sprach-/Bedeutungs- und Quellen-/Ländermatrix für die sechs Zielländer",
+    )
     parser.add_argument("--priority", choices=["A", "B"], help="optional nur eine Priorität")
     parser.add_argument("--limit", type=int, default=0)
     args = parser.parse_args()
 
-    queue = rows(args.region)
+    queue = project_rows() if args.project_matrix else rows(args.region)
     if args.priority:
         queue = [row for row in queue if row["priority"] == args.priority]
     if args.limit:

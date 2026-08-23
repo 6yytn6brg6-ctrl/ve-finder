@@ -73,12 +73,13 @@ Hersteller-/Open-Data-Quellen. Zusätzlich werden Betreiber, Kommunen, Tourismus
 Stadtwerke, Kläranlagen, Händler, Häfen sowie öffentlich sichtbare Social-Media-Beiträge als
 offene Primärquellenklasse geprüft.
 
-`alle Quellen` bedeutet im Audit deshalb:
+`alle Quellen` bedeutet im vereinbarten ostdeutschen Projektgebiet deshalb:
 
 - jede Quelle im gepflegten Register,
 - alle relevanten Kategorien innerhalb der Quelle,
 - alle angebotenen Sprachfassungen mit eigenständigem Inhalt,
-- alle 16 Bundesländer,
+- alle sechs Zielländer Berlin, Brandenburg, Mecklenburg-Vorpommern, Sachsen,
+  Sachsen-Anhalt und Thüringen,
 - regelmäßige Ergänzung des Registers um neu gefundene Quellen.
 
 Es bedeutet nicht, dass eine Suchmaschine jede Seite eines fremden Portals garantiert indexiert.
@@ -105,5 +106,6 @@ deren öffentliche Einzelseiten, Betreiberquellen und unabhängige Gegenquellen 
   promobil nennt unabhängig eine V/E für Durchreisende zu 5 EUR. Der vorhandene gelbe Datensatz
   wird grün und erhält die exakte Position.
 
-Diese beiden Korrekturen sind Beispiele für den neuen Ansatz, nicht der Abschluss des
-Gesamtabgleichs.
+Der vollständige Lauf vom 23.08.2026 ist in
+`docs/semantic-source-sweep-east-2026-08-23.md` dokumentiert. Ein späterer Ausbau auf weitere
+Bundesländer ist eine eigene Ausbaustufe und gehört nicht zum aktuellen Projektumfang.
