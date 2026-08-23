@@ -1,2 +1,2 @@
-V/E Finder v4.0 - 2026-08-23
-492 Stationen; Suche nach V/E-Stationen entlang einer Fahrtroute
+V/E Finder v4.1 - 2026-08-23
+493 Stationen; ergänzt um Campingplatz Am Freesenbruch in Zingst

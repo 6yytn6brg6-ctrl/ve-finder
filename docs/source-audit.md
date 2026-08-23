@@ -1,6 +1,6 @@
 # V/E Finder – Quellen-Audit
 
-Stand: 2026-08-22
+Stand: 2026-08-23
 
 ## Ziel
 
@@ -8,7 +8,7 @@ Die Stationsdaten sollen nicht von einer einzelnen Plattform abhängen. Jede Sta
 
 ## Aktueller Stand im Repository
 
-- Der produktive Bestand umfasst 492 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
+- Der produktive Bestand umfasst 493 Stationen und wird als gzip-komprimierte, Base64-geteilte JSON-Datei geladen.
 - Seit v3.2 besitzt der V/E Finder ein strukturiertes Quellenmodell pro Station: `sources[]`, `checked_at`, `source_type`, `source_url`, `source_note` und `verification_status`.
 - Altstationen werden nicht automatisch als neu geprüft ausgegeben. Alte freie Quellenangaben werden in das neue Modell gespiegelt und zunächst als `legacy_untracked` geführt, bis eine belastbare Einzelprüfung erfolgt.
 - Neue bzw. neu geprüfte Stationen sollen zusätzlich `confirms[]`, `discovered_via`, `source_owner_country` und `source_dependency` erhalten, damit auch die Unabhängigkeit mehrerer Quellen nachvollziehbar bleibt.
@@ -97,7 +97,7 @@ Der breite Sweep vom 22.08.2026 ist in `docs/deep-source-sweep-batch-1.md` dokum
 
 | Quelle | Stärke für V/E Finder | Rolle |
 |---|---|---|
-| **park4night** | sehr hoch – Kategorie `VE ohne Parkmöglichkeit`; aktuelle Nutzerberichte | Priorität A für Lücken und Störungen |
+| **park4night** | sehr hoch – Kategorie `VE ohne Parkmöglichkeit`, aber auch Campingplätze und Stellplätze mit Durchreise-V/E; aktuelle Nutzerberichte | Priorität A für Lücken und Störungen; nie nur eine Kategorie als Vollabgleich behandeln |
 | **CaraMaps** | sehr hoch – 100.000+ Adressen, Service Areas sowie Wasser/Entleerung | Priorität A/B |
 | **Camping-car.com / Camping-Car Magazine** | hoch – eigener Deutschland-Katalog mit Service-/Camping-Aires, regionale Listen und konkrete Servicefelder | zusätzliche französische Gegenquelle |
 | **Camping-Car Park** | sehr hoch bei eigenen deutschen Standorten – Betreiber-Netz mit Wasser und Grau-/Schwarzwasserentsorgung | Primär-/Betreiberquelle, wenn Standort direkt geführt wird |
@@ -128,7 +128,7 @@ Der breite Sweep vom 22.08.2026 ist in `docs/deep-source-sweep-batch-1.md` dokum
 
 ## OSM-Audit – erste Ausbaustufe
 
-Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 492er Bestands:
+Der automatisierte Vergleich konzentriert sich zunächst auf die sechs Bundesländer des aktuellen 493er Bestands:
 
 - Berlin (`DE-BE`)
 - Brandenburg (`DE-BB`)
@@ -177,7 +177,7 @@ Zwei Fundstellen zählen nur dann als `cross_checked`, wenn sie tatsächlich una
 
 1. OSM-Vollabgleich in den sechs ostdeutschen Bundesländern weiter verifizieren und clustern.
 2. Campercontact-Serviceplätze systematisch vergleichen.
-3. park4night-Kategorie `VE ohne Parkmöglichkeit` systematisch vergleichen.
+3. park4night systematisch und kategorieübergreifend vergleichen: `VE ohne Parkmöglichkeit`, Campingplätze, Reisemobilhäfen und Stellplätze mit ausdrücklich erlaubter Durchreise-V/E.
 4. CaraMaps-Service Areas abgleichen.
 5. Camping-car.com als zusätzliche französische Deutschland-Quelle prüfen.
 6. Nomad Camper und Camperguru gezielt für Polen-/Tschechien-Perspektive und Grenzregionen auswerten.

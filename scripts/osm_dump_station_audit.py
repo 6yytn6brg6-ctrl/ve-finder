@@ -33,7 +33,7 @@ STATES = {
     "DE-TH": "Thüringen",
 }
 
-EXPECTED_STATION_COUNT = 492
+EXPECTED_STATION_COUNT = 493
 
 STATE_ALIASES = {
     "Berlin": {"berlin", "be", "de-be"},
