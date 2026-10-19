@@ -1,0 +1,66 @@
+{
+  "ve-417": {
+    "name": "Ilsenburg/Harz, Ilsetal, Wohnmobilstellplatz Wanderlust im Ilsetal",
+    "status": "BESTÄTIGT: Durchreisende",
+    "type": "Stellplatz / Durchreise-V/E",
+    "cassette": "ja",
+    "grey": "ja",
+    "water": "ja",
+    "price": "V/E für Durchreisende 5 EUR; Frischwasser 2 EUR/100 l",
+    "source": "promobil, geprüft 2026; park4night, Vor-Ort-Bericht 2025",
+    "sourceUrl": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+    "note": "Strukturierte promobil-Angabe: Durchreise-V/E 5 EUR, Grau/Kassette/Wasser. Nutzerbericht vom 27.05.2025 stützt Durchreisezugang. Hausnummer 6/16a widersprüchlich; Koordinaten markieren Stellplatz, nicht Entsorgungspunkt.",
+    "lat": 51.85472,
+    "lon": 10.67111,
+    "coordinateQuality": "site_approx",
+    "color": "Grün",
+    "lastChecked": "2026-10-19",
+    "sources": [
+      {
+        "type": "editorial",
+        "name": "promobil – Wanderlust im Ilsetal",
+        "url": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+        "checked_at": "2026-10-19",
+        "note": "Strukturierte V/E-Felder: Durchreise 5 EUR, Wasser 2 EUR/100 l, Grau und Kassette; Stellplatzkoordinaten.",
+        "confirms": [
+          "existence",
+          "access",
+          "water",
+          "grey",
+          "cassette",
+          "price",
+          "coordinates"
+        ]
+      },
+      {
+        "type": "community",
+        "name": "park4night – Ilsenburg Ilsetal",
+        "url": "https://park4night.com/de/place/49589",
+        "checked_at": "2026-10-19",
+        "note": "Vor-Ort-Bericht 27.05.2025: Tagesnutzung mit Entsorgung 5 EUR. Keine Betreiberbestätigung.",
+        "confirms": [
+          "access",
+          "price"
+        ]
+      }
+    ],
+    "checked_at": "2026-10-19",
+    "source_type": "editorial",
+    "source_url": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+    "source_note": "Fachquelle und Vor-Ort-Bericht bestätigen Durchreise-V/E 5 EUR; Betreiberbestätigung und exakte Hausnummer offen.",
+    "verification_status": "editorial_confirmed",
+    "confirms": [
+      "existence",
+      "access",
+      "cassette",
+      "grey",
+      "water",
+      "price",
+      "coordinates"
+    ],
+    "discovered_via": "Wochenprüfung 2026-10-19, Korrektur ve-417",
+    "source_owner_country": "DE",
+    "source_dependency": "promobil editorial plus user report; current operator confirmation pending",
+    "primary_confirmation": "structured specialist field; operator confirmation outstanding"
+  }
+}
