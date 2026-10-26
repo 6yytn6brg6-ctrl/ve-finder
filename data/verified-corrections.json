@@ -1,0 +1,64 @@
+{
+  "ve-417": {
+    "name": "Wohnmobilstellplatz Wanderlust im Ilsetal, Ilsenburg",
+    "address": "Ilsetal 6, 38871 Ilsenburg (Harz)",
+    "lat": 51.85472,
+    "lon": 10.67111,
+    "coordinateQuality": "site_approx",
+    "color": "Gelb",
+    "cassette": "ja",
+    "grey": "ja",
+    "water": "ja",
+    "price": "Durchreise-V/E laut promobil 5 EUR; Frischwasser 2 EUR/100 l (Tarif vor Ort prüfen)",
+    "note": "Durchreise-V/E (Kassette/Grauwasser/Wasser) laut promobil; Betreiberbestätigung für alleinige Durchreise-V/E steht aus. Standortkoordinaten markieren den Stellplatz, nicht den genauen Entsorgungspunkt. Betreiber nennt Ilsetal 6 für den Stellplatz und Ilsetal 16a für Outdoor-Shop/Ferienwohnung.",
+    "source": "promobil (V/E), Wanderlust-Ilsetal (Adresse), park4night (Nutzerberichte)",
+    "sourceUrl": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+    "lastChecked": "2026-10-26",
+    "checked_at": "2026-10-26",
+    "source_type": "editorial",
+    "source_url": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+    "source_note": "Fachquelle bestätigt 5 EUR Durchreise-V/E, Kassette, Grauwasser und Wasser; Betreiber-Website nennt Ilsetal 6 als Stellplatzadresse, ist am Prüftag zeitweise im Wartungsmodus. Betreiberbestätigung des Durchreisetarifs fehlt.",
+    "verification_status": "cross_checked",
+    "sources": [
+      {
+        "type": "editorial",
+        "name": "promobil – Wanderlust im Ilsetal",
+        "url": "https://www.promobil.de/stellplatz/stellplatz-wanderlust-im-ilsetal-588f1d3b721d54a52815ce5e.html",
+        "checked_at": "2026-10-26",
+        "note": "V/E für Durchreisende 5 EUR, Wasser 2 EUR/100 l, Grauwasser, Kassette, Adresse Ilsetal 6, Stellplatzkoordinaten.",
+        "confirms": [
+          "existence",
+          "access",
+          "cassette",
+          "grey",
+          "water",
+          "price",
+          "coordinates"
+        ]
+      },
+      {
+        "type": "operator",
+        "name": "Wanderlust-Ilsetal – Betreiber, Standortangaben",
+        "url": "https://www.wanderlust-ilsetal.de/ilsenburg-und-umgebung/",
+        "checked_at": "2026-10-26",
+        "note": "Indexierte Betreiberangaben: Stellplatz Ilsetal 6; Outdoor-Shop und Ferienwohnung Ilsetal 16a. Webseite am 26.10.2026 im Wartungsmodus; kein Primärnachweis für Durchreise-V/E.",
+        "confirms": [
+          "existence"
+        ]
+      },
+      {
+        "type": "community",
+        "name": "park4night – Ilsenburg Ilsetal",
+        "url": "https://park4night.com/en/place/49589",
+        "checked_at": "2026-10-26",
+        "note": "Community-Eintrag mit Frischwasser, Grauwasser, Kassette und Besuchsberichten 2026; einzelne Preise widersprüchlich.",
+        "confirms": [
+          "existence",
+          "cassette",
+          "grey",
+          "water"
+        ]
+      }
+    ]
+  }
+}
