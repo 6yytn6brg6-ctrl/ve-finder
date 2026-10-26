@@ -89,7 +89,27 @@
       throw new Error(`Unerwartete Stationsanzahl: ${Array.isArray(data) ? data.length : 'kein Array'}`);
     }
 
-    return JSON.stringify(data.map(normalizeStation));
+    // Merge separately reviewed corrections by stable station ID without changing the 498-record count.
+    // The original compressed chunks remain the baseline; a missing overlay must not hide all stations.
+    let corrections = {};
+    try {
+      const correctionResponse = await nativeFetch('data/verified-corrections.json?v=20261026-1', { cache: 'no-store' });
+      if (!correctionResponse.ok) throw new Error(`Korrekturen HTTP ${correctionResponse.status}`);
+      const payload = await correctionResponse.json();
+      if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
+        throw new Error('Korrekturdatei ist kein Objekt');
+      }
+      corrections = payload;
+    } catch (err) {
+      console.warn('Geprüfte Stationskorrekturen konnten nicht geladen werden; Altbestand bleibt verfügbar.', err);
+    }
+    const ids = new Set(data.map(station => station.id));
+    for (const id of Object.keys(corrections)) {
+      if (!ids.has(id)) console.warn(`Stationskorrektur ohne passende ID: ${id}`);
+    }
+    return JSON.stringify(data.map(station =>
+      normalizeStation({ ...station, ...(corrections[station.id] || {}) })
+    ));
   }
 
   async function normalizedFallback(input, init) {
