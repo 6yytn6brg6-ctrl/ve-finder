@@ -60,5 +60,69 @@
         ]
       }
     ]
+  },
+  "ve-255": {
+    "status": "V/E für Durchreisende laut Bordatlas; aktuelle Betreiberbestätigung ausstehend",
+    "lat": 51.196722,
+    "lon": 14.134855,
+    "coordinateQuality": "site_approx",
+    "color": "Gelb",
+    "cassette": "ja",
+    "grey": "ja",
+    "water": "ja",
+    "price": "Wasser laut Bordatlas 1 EUR/100 l; Entsorgungspreis nicht separat ausgewiesen (vor Ort prüfen)",
+    "note": "Bordatlas listet Holiday Cleany für Kassette und Grauwasser sowie Durchreise-Entsorgung ohne Übernachtung; Frischwasser laut Bordatlas nur zu Geschäftszeiten. Betreiber bestätigt auf seiner Website Adresse und Geschäftszeiten, nicht aber V/E-Zugang, aktuelle Betriebsfähigkeit oder Tarif. Letzte dokumentierte Bordatlas-Vor-Ort-Prüfung 03.08.2024; weitere Fachquelle zuletzt 12.08.2023 aktualisiert. Daher weiterhin Gelb. Koordinaten bezeichnen den Stellplatz, nicht den exakt vermessenen V/E-Punkt. Nicht mit ve-257 Friedenstraße verwechseln.",
+    "source": "Bordatlas Einzelplatzprofil (Vor-Ort-Prüfung 2024), Stellplatzfuehrer.de (Stand 2023), Betreiber-Kontaktseite (Adresse und Öffnungszeiten)",
+    "sourceUrl": "https://www.bordatlas.de/stellplatz/3487-caravan-amp-reisemobile-boehm-elstra-rauschwitz/",
+    "lastChecked": "2026-11-02",
+    "checked_at": "2026-11-02",
+    "source_type": "editorial",
+    "source_url": "https://www.bordatlas.de/stellplatz/3487-caravan-amp-reisemobile-boehm-elstra-rauschwitz/",
+    "source_note": "Onlinequellen am 02.11.2026 geprüft; letzte dokumentierte Bordatlas-Vor-Ort-Prüfung 03.08.2024. Keine aktuelle Betreiberbestätigung für V/E und Durchreisende.",
+    "verification_status": "cross_checked",
+    "sources": [
+      {
+        "type": "editorial",
+        "name": "Bordatlas – Caravan & Reisemobile Böhm",
+        "url": "https://www.bordatlas.de/stellplatz/3487-caravan-amp-reisemobile-boehm-elstra-rauschwitz/",
+        "checked_at": "2026-11-02",
+        "note": "Onlineprofil am 02.11.2026 gelesen, dokumentierte Vor-Ort-Prüfung 03.08.2024; bestätigt Durchreise-Entsorgung, Holiday Cleany, Wasser nur zu Geschäftszeiten und 1 EUR/100 l.",
+        "confirms": [
+          "existence",
+          "access",
+          "cassette",
+          "grey",
+          "water",
+          "price",
+          "coordinates"
+        ]
+      },
+      {
+        "type": "community",
+        "name": "Stellplatzfuehrer.de – Caravan und Reisemobile Böhm",
+        "url": "https://www.stellplatzfuehrer.de/plaetze/listen/alle/4963-caravan-und-reisemobile-bhm",
+        "checked_at": "2026-11-02",
+        "note": "Eintrag zuletzt 12.08.2023 geändert; listet Wasser, Chemie-WC, Grauwasser und Stellplatzkoordinaten; kein aktueller Beleg für Durchreise-Zugang.",
+        "confirms": [
+          "existence",
+          "cassette",
+          "grey",
+          "water",
+          "coordinates"
+        ]
+      },
+      {
+        "type": "operator",
+        "name": "Caravan Böhm – Kontakt und Geschäftszeiten",
+        "url": "https://www.caravanboehm.de/kontakt",
+        "checked_at": "2026-11-02",
+        "note": "Betreiber bestätigt Adresse Bischofswerdaer Landstraße 3 und Mo-Fr 09-18 Uhr; V/E-Angebot nicht erwähnt.",
+        "confirms": [
+          "existence",
+          "opening_hours",
+          "phone"
+        ]
+      }
+    ]
   }
 }
